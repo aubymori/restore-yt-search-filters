@@ -70,7 +70,7 @@ document.addEventListener("yt-page-data-updated", function(e)
         {
             let buttonData = filterButton.data;
             let groups = buttonData.command.openPopupAction.popup.searchFilterOptionsDialogRenderer.groups;
-            let query = groups[0].searchFilterGroupRenderer.filters[0].searchFilterRenderer.navigationEndpoint.searchEndpoint.query;
+            let query = new URLSearchParams(location.search).get("search_query");
 
             if (Settings.removeShortsTypeFilter)
             {

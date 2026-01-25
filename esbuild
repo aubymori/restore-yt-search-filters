@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+const esbuild  = require("esbuild");
+const process  = require("node:process");
+const pbjs     = require("protobufjs-cli/pbjs");
+const fs       = require("node:fs/promises");
+
+const [, , mode] = process.argv;
+
+const BuildProtos = {
+    name: "BuildProtos",
+    setup(build) {
+        build.onStart(async function()
+        {
+            console.log("Building protos...");
+            pbjs.main([
+                "--target", "static-module",
+                "--wrap", "commonjs",
+                "--out", "src/generated/protos.js",
+                "./protos/SearchParams.proto"
+            ]);
+        });
+    }
+};
+
+const esbuildConfig = {
+    entryPoints: ["src/index.js"],
+    bundle: true,
+    outfile: "dist/index.user.js",
+    splitting: false,
+    format: "esm",
+    platform: "browser",
+    plugins: [BuildProtos],
+    banner: {
+        js: [
+            "// ==UserScript==",
+            "// @name          Restore YouTube Search Filters",
+            "// @description   Restores removed YouTube search filters",
+            "// @version       1.0.0",
+            "// @author        aubymori",
+            "// @license       GPL-3.0",
+            "// @icon          https://www.youtube.com/favicon.ico",
+            "// @run-at        document-start",
+            "// @match         www.youtube.com/*",
+            "// @grant         GM_getValue",
+            "// @grant         GM_setValue",
+            "// ==/UserScript==",
+        ].join("\n")
+    }
+};
+
+if (mode === "dev")
+{
+    esbuildConfig.sourcemap = true;
+}
+else
+{
+    esbuildConfig.minify = true;
+}
+
+console.log(`Building in ${(mode === "dev") ? "development" : "production"} mode`);
+console.log();
+
+esbuild.build(esbuildConfig).then(function()
+{
+    console.log(`Built ${esbuildConfig.outfile}`);
+}).catch(function (e)
+{
+    console.log(`Build failed. Error:`);
+    console.log(e);
+})

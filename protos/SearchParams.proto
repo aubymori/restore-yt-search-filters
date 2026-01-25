@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package youtube.api.innertube;
+
+message SearchParams {
+    enum SearchResultsSortType {
+        BY_RELEVANCE = 0;
+        BY_RATING = 1;
+        BY_DATE = 2;
+        BY_VIEW_COUNT = 3;
+    }
+
+    optional SearchResultsSortType sort_type = 1;
+
+    message FilterOptions {
+        enum UploadDateRestrictType {
+            UPLOAD_DATE_ANY = 0;
+            UPLOAD_DATE_LAST_HOUR = 1;
+            UPLOAD_DATE_TODAY = 2;
+            UPLOAD_DATE_THIS_WEEK = 3;
+            UPLOAD_DATE_THIS_MONTH = 4;
+            UPLOAD_DATE_THIS_YEAR = 5;
+        }
+
+        optional UploadDateRestrictType restrict_upload_date = 1;
+
+        enum ResultTypeRestrictType {
+            RESULT_TYPE_ANY = 0;
+            RESULT_TYPE_VIDEO = 1;
+            RESULT_TYPE_CHANNEL = 2;
+            RESULT_TYPE_PLAYLIST = 3;
+            RESULT_TYPE_MOVIE = 4;
+            RESULT_TYPE_SHOW = 5;
+            RESULT_TYPE_SCENE = 6;
+            RESULT_TYPE_GAME = 7;
+            RESULT_TYPE_EVENT = 8;
+            RESULT_TYPE_SHORTS = 9;
+        }
+
+        optional ResultTypeRestrictType restrict_result_type = 2;
+
+        enum DurationRestrictType {
+            DURATION_ANY = 0;
+            DURATION_SHORT = 1;
+            DURATION_LONG = 2;
+            DURATION_MEDIUM = 3;
+            DURATION_SHORT_V2 = 4;
+            DURATION_MEDIUM_V2 = 5;
+        }
+
+        optional DurationRestrictType restrict_duration = 3;
+        optional bool restrict_high_definition = 4;
+        optional bool restrict_closed_caption = 5;
+        optional bool restrict_creative_commons = 6;
+        optional bool restrict_threed = 7;
+        optional bool restrict_live = 8;
+        optional bool restrict_purchased = 9;
+        repeated string restrict_usernames = 10;
+
+        enum SafeSearchRestrictType {
+            DEFAULT = 0;
+            NO_FILTERING = 1;
+            MODERATE_FILTERING = 2;
+            STRICT_FILTERING = 3;
+        }
+
+        optional SafeSearchRestrictType restrict_safe_search = 11;
+        optional bool restrict_edu = 12;
+        optional bool restrict_fourk = 14;
+        optional bool restrict_spherical = 15;
+        optional bool restrict_spacecast = 16;
+        optional bool restrict_paid_content = 20;
+        optional bool restrict_full_movie_page = 21;
+        optional string restrict_content_owner = 22;
+        optional bool restrict_location = 23;
+        optional string restrict_location_place_id = 24;
+        optional bool restrict_high_dynamic_range = 25;
+        optional bool restrict_partial_spherical = 26;
+        optional bool restrict_premium_tvfilm_movie_page = 28;
+        optional bool restrict_unwatched = 29;
+        optional bool restrict_paid_product_placement = 32;
+        optional bool restrict_eightk = 33;
+    }
+
+    optional FilterOptions filter_options = 2;
+
+    optional int32 index = 9;
+
+    optional string something = 61;
+}

@@ -35,7 +35,7 @@ const esbuildConfig = {
             "// ==UserScript==",
             "// @name          Restore YouTube Search Filters",
             "// @description   Restores removed YouTube search filters",
-            "// @version       1.0.0",
+            "// @version       1.0.1",
             "// @author        aubymori",
             "// @namespace     aubymori",
             "// @license       GPL-3.0",

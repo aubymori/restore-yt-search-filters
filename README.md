@@ -21,6 +21,9 @@ menu:
 
 ![Accessing settings](img/settings.png)
 
+## Links
+- [GreasyFork (script releases)](https://greasyfork.org/en/scripts/563980-restore-youtube-search-filters)
+
 ## Building
 
 ### Requirements

@@ -11,6 +11,15 @@ const BuildProtos = {
     setup(build) {
         build.onStart(async function()
         {
+            try
+            {
+                await fs.access("src/generated/", fs.constants.W_OK);
+            }
+            catch
+            {
+                await fs.mkdir("src/generated/", { recursive: true });
+            }
+
             console.log("Building protos...");
             pbjs.main([
                 "--target", "static-module",
